@@ -67,8 +67,8 @@ export function Navbar({
             <Link href="/about">About</Link>
           </li>
 
-          <li className="text-lg text-muted-foreground  ">
-            <Link href="/create">Create</Link>
+          <li className="text-lg text-muted-foreground ">
+            <Link href="/blogs">Blogs</Link>
           </li>
 
           <li className="text-lg text-muted-foreground ">

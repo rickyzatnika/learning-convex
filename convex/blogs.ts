@@ -1,4 +1,4 @@
-import { mutation } from "./_generated/server";
+import { mutation, query } from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 import { authComponent } from "./auth";
 
@@ -16,3 +16,19 @@ export const createBlog = mutation({
     return newBlogId;
   },
 });
+
+
+
+
+
+// Return the last 100 tasks in a given task list.
+export const getBlogs = query({
+  handler: async (ctx) => {
+    const tasks = await ctx.db
+      .query("blogs")
+      .collect();
+  
+    return tasks;
+  },
+});
+
