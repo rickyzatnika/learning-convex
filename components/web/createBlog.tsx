@@ -18,6 +18,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
+import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useConvexAuth, useMutation } from "convex/react";
 import { useRouter } from "next/navigation";
@@ -25,13 +26,16 @@ import { useEffect, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
-import { api } from "@/convex/_generated/api";
 
-const CreatePage = () => {
+const CreateBlog = ({
+  setIsModalOpen,
+}: {
+  setIsModalOpen: (open: boolean) => void;
+}) => {
   const { isAuthenticated, isLoading } = useConvexAuth();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const createBlog = useMutation(api.blogs.createBlog);
+  const mutation = useMutation(api.blogs.createBlog);
 
   const form = useForm<z.infer<typeof blogSchema>>({
     resolver: zodResolver(blogSchema),
@@ -41,18 +45,18 @@ const CreatePage = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof blogSchema>) {
+  function onSubmit(values: z.infer<typeof blogSchema>) {
     startTransition(async () => {
       try {
-        await createBlog({
-          title: data.title,
-          content: data.content,
+        await mutation({
+          title: values.title,
+          content: values.content,
           authorId: "", // This will be handled by the mutation using the authenticated user
           author: "", // This will be handled by the mutation using the authenticated user
         });
         toast.success("Blog created successfully!");
         form.reset();
-        router.push("/");
+        setIsModalOpen(false);
       } catch (error) {
         toast.error(
           error instanceof Error ? error.message : "Failed to create blog"
@@ -68,10 +72,10 @@ const CreatePage = () => {
   }, [isAuthenticated]);
 
   return (
-    <div className="py-12 h-[1850px]">
-      <div className="text-center">
+    <div className="">
+      <div className="text-center space-y-1">
         <h1 className="text-3xl font-bold">Create POST</h1>
-        <p>Membuat Form CREATE POST to database Convex</p>
+        <p className="pb-6">Membuat Form CREATE POST to database Convex</p>
       </div>
 
       <Card className="w-full max-w-xl mx-auto">
@@ -136,4 +140,4 @@ const CreatePage = () => {
   );
 };
 
-export default CreatePage;
+export default CreateBlog;

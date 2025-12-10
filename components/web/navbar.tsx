@@ -41,9 +41,9 @@ export function Navbar({
 
   return (
     <nav
-      className={`w-full flex items-center justify-between h-24 py-6 px-4 md:px-14 lg:px-28 transition-all duration-300 ease-in-out  ${
+      className={`w-full mx-auto flex items-center justify-between h-24 px-8 transition-all duration-300 ease-in-out  ${
         isScrolled
-          ? "bg-accent/50 backdrop-blur-sm fixed top-0 z-40 shadow-md "
+          ? "bg-accent/50 backdrop-blur-sm fixed max-w-7xl top-0 left-0 right-0 z-40 shadow-md "
           : " bg-transparent"
       }`}
     >
@@ -58,7 +58,9 @@ export function Navbar({
             className="object-contain"
           />
         </Link>
-        <ul className={`flex gap-8 ${isScrolled ? "text-accent" : ""}`}>
+        <ul
+          className={`hidden md:flex gap-8 ${isScrolled ? "text-accent" : ""}`}
+        >
           <li className="text-lg text-muted-foreground ">
             <Link href="/">Home</Link>
           </li>

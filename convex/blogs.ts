@@ -32,3 +32,13 @@ export const getBlogs = query({
   },
 });
 
+
+// Get single blog by ID
+export const getBlogById = query({
+  args: { id: v.id("blogs") },
+  handler: async (ctx, args) => {
+    const blog = await ctx.db.get(args.id);
+    return blog;
+  },
+});
+

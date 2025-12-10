@@ -29,7 +29,7 @@ export default function SharedLayout({
         </div>
       )}
       <Navbar setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
-      <div className="max-w-7xl mx-auto w-full ">{children}</div>
+      <div>{children}</div>
     </>
   );
 }
