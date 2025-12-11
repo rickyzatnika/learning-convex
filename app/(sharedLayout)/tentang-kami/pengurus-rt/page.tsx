@@ -57,10 +57,15 @@ export default function PengurusRTPage() {
         {/* RT Cards */}
         <div className="max-w-6xl mx-auto space-y-6">
           {rtData.map((rt, i) => (
-            <Card key={i} className="hover:shadow-lg transition-shadow">
-              <CardHeader className="bg-primary/5">
+            <Card
+              key={i}
+              className="hover:shadow-lg transition-shadow text-center"
+            >
+              <CardHeader className="bg-primary/5 py-4 relative -top-6">
                 <CardTitle className="text-2xl">{rt.rt}</CardTitle>
-                <p className="text-muted-foreground">Jumlah KK: {rt.jumlahKK} Kepala Keluarga</p>
+                <p className="text-muted-foreground">
+                  Jumlah KK: {rt.jumlahKK} Kepala Keluarga
+                </p>
               </CardHeader>
               <CardContent className="pt-6">
                 <div className="grid md:grid-cols-3 gap-6">
@@ -72,7 +77,9 @@ export default function PengurusRTPage() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="font-semibold text-sm text-muted-foreground mb-1">Ketua RT</p>
+                    <p className="font-semibold text-sm text-muted-foreground mb-1">
+                      Ketua RT
+                    </p>
                     <p className="font-medium">{rt.ketua}</p>
                   </div>
                   <div className="text-center">
@@ -83,7 +90,9 @@ export default function PengurusRTPage() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="font-semibold text-sm text-muted-foreground mb-1">Sekretaris</p>
+                    <p className="font-semibold text-sm text-muted-foreground mb-1">
+                      Sekretaris
+                    </p>
                     <p className="font-medium">{rt.sekretaris}</p>
                   </div>
                   <div className="text-center">
@@ -94,7 +103,9 @@ export default function PengurusRTPage() {
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <p className="font-semibold text-sm text-muted-foreground mb-1">Bendahara</p>
+                    <p className="font-semibold text-sm text-muted-foreground mb-1">
+                      Bendahara
+                    </p>
                     <p className="font-medium">{rt.bendahara}</p>
                   </div>
                 </div>
