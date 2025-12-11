@@ -2,10 +2,12 @@ import { defineSchema, defineTable } from "convex/server";
 import { v } from "convex/values";
 
 export default defineSchema({
-    blogs: defineTable({
+    news: defineTable({
         title: v.string(),
-        content: v.string(),
-        authorId: v.string(),
+        image: v.string(),
         author: v.string(),
+        desc: v.string(),
+        content: v.string(),
+        
     })
 });

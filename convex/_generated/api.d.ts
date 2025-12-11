@@ -9,8 +9,8 @@
  */
 
 import type * as auth from "../auth.js";
-import type * as blogs from "../blogs.js";
 import type * as http from "../http.js";
+import type * as news from "../news.js";
 
 import type {
   ApiFromModules,
@@ -20,8 +20,8 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   auth: typeof auth;
-  blogs: typeof blogs;
   http: typeof http;
+  news: typeof news;
 }>;
 
 /**

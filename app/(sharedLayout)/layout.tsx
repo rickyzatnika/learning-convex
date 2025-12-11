@@ -2,6 +2,7 @@
 
 import { Button } from "@/components/ui/button";
 import { Navbar } from "@/components/web/navbar";
+import { Footer } from "@/components/web/footer";
 import { SignUpForm } from "@/components/web/signUpForm";
 import { X } from "lucide-react";
 import { useState } from "react";
@@ -29,7 +30,8 @@ export default function SharedLayout({
         </div>
       )}
       <Navbar setIsModalOpen={setIsModalOpen} isModalOpen={isModalOpen} />
-      <div>{children}</div>
+      <main>{children}</main>
+      <Footer />
     </>
   );
 }

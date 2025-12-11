@@ -1,6 +1,6 @@
 "use client";
 
-import { blogSchema } from "@/app/schemas/blog";
+import { newsSchema } from "@/app/schemas/news";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -27,7 +27,7 @@ import { Controller, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import z from "zod";
 
-const CreateBlog = ({
+const CreateNewsForm = ({
   setIsModalOpen,
 }: {
   setIsModalOpen: (open: boolean) => void;
@@ -35,26 +35,30 @@ const CreateBlog = ({
   const { isAuthenticated, isLoading } = useConvexAuth();
   const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mutation = useMutation(api.blogs.createBlog);
+  const mutation = useMutation(api.news.createNews);
 
-  const form = useForm<z.infer<typeof blogSchema>>({
-    resolver: zodResolver(blogSchema),
+  const form = useForm<z.infer<typeof newsSchema>>({
+    resolver: zodResolver(newsSchema),
     defaultValues: {
       title: "",
       content: "",
+      author: "",
+      image: "",
+      desc: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof blogSchema>) {
+  function onSubmit(values: z.infer<typeof newsSchema>) {
     startTransition(async () => {
       try {
         await mutation({
           title: values.title,
           content: values.content,
-          authorId: "", // This will be handled by the mutation using the authenticated user
-          author: "", // This will be handled by the mutation using the authenticated user
+          author: values.author,
+          image: values.image,
+          desc: values.desc,
         });
-        toast.success("Blog created successfully!");
+        toast.success("News created successfully!");
         form.reset();
         setIsModalOpen(false);
       } catch (error) {
@@ -104,6 +108,45 @@ const CreateBlog = ({
                   </Field>
                 )}
               />
+
+              <Controller
+                name="desc"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Deskripsi :</FieldLabel>
+                    <Input
+                      aria-invalid={fieldState.invalid}
+                      placeholder="deskripsi konten"
+                      {...field}
+                    />
+
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
+              <Controller
+                name="image"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Gambar :</FieldLabel>
+                    <Input
+                      aria-invalid={fieldState.invalid}
+                      placeholder="url gambar"
+                      {...field}
+                    />
+
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+
               <Controller
                 name="content"
                 control={form.control}
@@ -112,7 +155,7 @@ const CreateBlog = ({
                     <FieldLabel>Konten :</FieldLabel>
                     <Textarea
                       aria-invalid={fieldState.invalid}
-                      placeholder="johny@example.com"
+                      placeholder="masukkan konten minimal 100 karakter"
                       {...field}
                     />
 
@@ -140,4 +183,4 @@ const CreateBlog = ({
   );
 };
 
-export default CreateBlog;
+export default CreateNewsForm;
