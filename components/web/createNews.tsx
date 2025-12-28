@@ -1,5 +1,6 @@
 "use client";
 
+import { createNewsAction } from "@/app/action";
 import { newsSchema } from "@/app/schemas/news";
 import { Button } from "@/components/ui/button";
 import {
@@ -18,9 +19,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Spinner } from "@/components/ui/spinner";
 import { Textarea } from "@/components/ui/textarea";
-import { api } from "@/convex/_generated/api";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useConvexAuth, useMutation } from "convex/react";
+import { useConvexAuth } from "convex/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useTransition } from "react";
 import { Controller, useForm } from "react-hook-form";
@@ -32,10 +32,7 @@ const CreateNewsForm = ({
 }: {
   setIsModalOpen: (open: boolean) => void;
 }) => {
-  const { isAuthenticated, isLoading } = useConvexAuth();
-  const router = useRouter();
   const [isPending, startTransition] = useTransition();
-  const mutation = useMutation(api.news.createNews);
 
   const form = useForm<z.infer<typeof newsSchema>>({
     resolver: zodResolver(newsSchema),
@@ -51,13 +48,8 @@ const CreateNewsForm = ({
   function onSubmit(values: z.infer<typeof newsSchema>) {
     startTransition(async () => {
       try {
-        await mutation({
-          title: values.title,
-          content: values.content,
-          author: values.author,
-          image: values.image,
-          desc: values.desc,
-        });
+        await createNewsAction(values);
+
         toast.success("News created successfully!");
         form.reset();
         setIsModalOpen(false);
@@ -69,14 +61,8 @@ const CreateNewsForm = ({
     });
   }
 
-  useEffect(() => {
-    if (!isAuthenticated && !isLoading) {
-      router.push("/");
-    }
-  }, [isAuthenticated]);
-
   return (
-    <div className="">
+    <div className="fixed bg-black/50 backdrop-blur top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-screen flex flex-col items-center justify-center">
       <div className="text-center space-y-1">
         <h1 className="text-3xl font-bold">Create POST</h1>
         <p className="pb-6">Membuat Form CREATE POST to database Convex</p>
@@ -96,6 +82,24 @@ const CreateNewsForm = ({
                 render={({ field, fieldState }) => (
                   <Field>
                     <FieldLabel>Judul :</FieldLabel>
+                    <Input
+                      aria-invalid={fieldState.invalid}
+                      placeholder="Example: John Doe"
+                      {...field}
+                    />
+
+                    {fieldState.invalid && (
+                      <FieldError errors={[fieldState.error]} />
+                    )}
+                  </Field>
+                )}
+              />
+              <Controller
+                name="author"
+                control={form.control}
+                render={({ field, fieldState }) => (
+                  <Field>
+                    <FieldLabel>Author :</FieldLabel>
                     <Input
                       aria-invalid={fieldState.invalid}
                       placeholder="Example: John Doe"

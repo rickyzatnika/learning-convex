@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/web/theme-provider";
 import { ConvexClientProvider } from "@/components/ConvexClientProvider";
 import { Toaster } from "sonner";
+import { LiveChat } from "@/components/web/livechat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -39,6 +40,7 @@ export default function RootLayout({
           <ConvexClientProvider>
             <main className="max-w-7xl mx-auto w-full">{children}</main>
             <Toaster position="top-center" duration={2000} />
+            <LiveChat />
           </ConvexClientProvider>
         </ThemeProvider>
       </body>
