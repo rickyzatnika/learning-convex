@@ -40,7 +40,7 @@ const CreateNewsForm = ({
       title: "",
       content: "",
       author: "",
-      image: "",
+      image: undefined,
       desc: "",
     },
   });
@@ -141,7 +141,12 @@ const CreateNewsForm = ({
                     <Input
                       aria-invalid={fieldState.invalid}
                       placeholder="url gambar"
-                      {...field}
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => {
+                        const file = event.target.files?.[0];
+                        field.onChange(file);
+                      }}
                     />
 
                     {fieldState.invalid && (

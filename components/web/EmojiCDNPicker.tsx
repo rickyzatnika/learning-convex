@@ -2,14 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 
-declare global {
-  namespace JSX {
-    interface IntrinsicElements {
-      "emoji-picker": any;
-    }
-  }
-}
-
 export function EmojiCDNPicker({ onPick }: { onPick: (emoji: string) => void }) {
   const [ready, setReady] = useState(false);
   const ref = useRef<any>(null);
@@ -43,6 +35,10 @@ export function EmojiCDNPicker({ onPick }: { onPick: (emoji: string) => void }) 
 
   if (!ready) return null;
   return (
-    <emoji-picker ref={ref} class="rounded-xl border bg-popover shadow-xl" emoji-version="14"></emoji-picker>
+    <emoji-picker
+      ref={ref}
+      className="rounded-xl border bg-popover shadow-xl"
+      emoji-version="14"
+    />
   );
 }

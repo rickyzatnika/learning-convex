@@ -3,7 +3,10 @@
 import dynamic from "next/dynamic";
 import { useCallback, useEffect, useState } from "react";
 
-const Picker = dynamic(() => import("@emoji-mart/react"), { ssr: false }) as any;
+const Picker = dynamic(
+  () => import("@emoji-mart/react").then((m) => m.default),
+  { ssr: false }
+) as any;
 
 export function EmojiMartPicker({ onPick }: { onPick: (emoji: string) => void }) {
   const [data, setData] = useState<any | null>(null);

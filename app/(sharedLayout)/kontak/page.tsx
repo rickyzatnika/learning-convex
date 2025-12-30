@@ -26,25 +26,35 @@ export default function KontakPage() {
             <CardContent>
               <form className="space-y-4">
                 <div>
-                  <Label htmlFor="name">Nama Lengkap</Label>
+                  <Label htmlFor="name" className="mb-3">
+                    Nama Lengkap
+                  </Label>
                   <Input id="name" placeholder="Masukkan nama lengkap" />
                 </div>
                 <div>
-                  <Label htmlFor="email">Email</Label>
+                  <Label htmlFor="email" className="mb-3">
+                    Email
+                  </Label>
                   <Input id="email" type="email" placeholder="nama@email.com" />
                 </div>
                 <div>
-                  <Label htmlFor="phone">Nomor Telepon</Label>
+                  <Label htmlFor="phone" className="mb-3">
+                    Nomor Telepon
+                  </Label>
                   <Input id="phone" type="tel" placeholder="08xx-xxxx-xxxx" />
                 </div>
                 <div>
-                  <Label htmlFor="subject">Subjek</Label>
+                  <Label htmlFor="subject" className="mb-3">
+                    Subjek
+                  </Label>
                   <Input id="subject" placeholder="Subjek pesan" />
                 </div>
                 <div>
-                  <Label htmlFor="message">Pesan</Label>
-                  <Textarea 
-                    id="message" 
+                  <Label htmlFor="message" className="mb-3">
+                    Pesan
+                  </Label>
+                  <Textarea
+                    id="message"
                     placeholder="Tulis pesan Anda di sini..."
                     rows={5}
                   />
@@ -71,8 +81,10 @@ export default function KontakPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Alamat Sekretariat</h4>
                     <p className="text-muted-foreground">
-                      Jl. Contoh No. 123<br />
-                      Jakarta Selatan, DKI Jakarta<br />
+                      Jl. Contoh No. 123
+                      <br />
+                      Jakarta Selatan, DKI Jakarta
+                      <br />
                       12345
                     </p>
                   </div>
@@ -85,7 +97,8 @@ export default function KontakPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Telepon</h4>
                     <p className="text-muted-foreground">
-                      +62 812-3456-7890<br />
+                      +62 812-3456-7890
+                      <br />
                       +62 21-1234567
                     </p>
                   </div>
@@ -98,7 +111,8 @@ export default function KontakPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Email</h4>
                     <p className="text-muted-foreground">
-                      info@rw-example.com<br />
+                      info@rw-example.com
+                      <br />
                       sekretariat@rw-example.com
                     </p>
                   </div>
@@ -111,8 +125,10 @@ export default function KontakPage() {
                   <div>
                     <h4 className="font-semibold mb-1">Jam Operasional</h4>
                     <p className="text-muted-foreground">
-                      Senin - Jumat: 08.00 - 15.00 WIB<br />
-                      Sabtu: 08.00 - 12.00 WIB<br />
+                      Senin - Jumat: 08.00 - 15.00 WIB
+                      <br />
+                      Sabtu: 08.00 - 12.00 WIB
+                      <br />
                       Minggu & Libur: Tutup
                     </p>
                   </div>
@@ -143,7 +159,9 @@ export default function KontakPage() {
 
         {/* FAQ Section */}
         <div className="max-w-4xl mx-auto mt-16">
-          <h2 className="text-3xl font-bold text-center mb-8">Pertanyaan yang Sering Diajukan</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">
+            Pertanyaan yang Sering Diajukan
+          </h2>
           <div className="space-y-4">
             {[
               {

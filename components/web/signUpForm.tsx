@@ -35,7 +35,6 @@ export function SignUpForm({
       name: "",
       email: "",
       password: "",
-      isAdmin: false,
     },
   });
 

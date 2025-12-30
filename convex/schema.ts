@@ -4,10 +4,10 @@ import { v } from "convex/values";
 export default defineSchema({
   news: defineTable({
     title: v.string(),
-    image: v.string(),
     author: v.string(),
     desc: v.string(),
     content: v.string(),
+    imageStorageId: v.optional(v.id("_storage")),
   }),
   services: defineTable({
     nama: v.string(),
@@ -83,6 +83,5 @@ export default defineSchema({
         })
       )
     ),
-  })
-    .index("by_thread", ["threadId"]) // list messages by thread
+  }).index("by_thread", ["threadId"]), // list messages by thread
 });

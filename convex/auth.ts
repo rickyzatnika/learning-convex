@@ -13,8 +13,9 @@ export const authComponent = createClient<DataModel>(components.betterAuth);
 
 export const createAuth = (
   ctx: GenericCtx<DataModel>,
-  { optionsOnly } = { optionsOnly: false },
+  { optionsOnly } = { optionsOnly: false }
 ) => {
+  // Backup previous config:
   return betterAuth({
     // disable logging when createAuth is called just to generate options.
     // this is not required, but there's a lot of noise in logs without it.

@@ -16,6 +16,7 @@ import moment from "moment";
 import { createSlug } from "@/lib/utils";
 import { useState } from "react";
 import CreateNewsForm from "@/components/web/createNews";
+import Image from "next/image";
 
 export default function BeritaPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -62,10 +63,12 @@ export default function BeritaPage() {
                   key={item._id}
                 >
                   <Card className="group overflow-hidden hover:shadow-lg transition-all hover:scale-105 duration-300 cursor-pointer">
-                    <img
-                      src={`https://picsum.photos/400/250?random=${item.image + 10}`}
+                    <Image
+                      src={item.imageUrl || ""}
                       alt={item.title}
                       className="w-full h-48 object-cover"
+                      width={400}
+                      height={250}
                     />
                     <CardHeader>
                       <div className="group flex items-center gap-3 text-xs text-muted-foreground mb-2">

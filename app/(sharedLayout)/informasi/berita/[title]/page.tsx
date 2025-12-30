@@ -4,6 +4,7 @@ import { api } from "@/convex/_generated/api";
 import { fetchQuery } from "convex/nextjs";
 import moment from "moment";
 import { createSlug, slugToTitle } from "@/lib/utils";
+import Image from "next/image";
 
 // Generate static params untuk pre-rendering
 export async function generateStaticParams() {
@@ -44,6 +45,18 @@ export default async function DetailNewsPage({
             Created: {moment(news._creationTime).fromNow()}
           </p>
         </div>
+
+        {news.imageUrl ? (
+          // Use plain img to avoid next/image remote domain config issues for Convex URLs
+          <Image
+            src={news.imageUrl}
+            alt={news.title}
+            width={1200}
+            height={800}
+            priority
+            className="w-full max-w-4xl h-auto mb-8 rounded-lg"
+          />
+        ) : null}
 
         <div className="prose prose-lg">
           <p>{news.content}</p>

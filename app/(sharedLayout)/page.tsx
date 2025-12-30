@@ -1,3 +1,5 @@
+"use client ";
+
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,20 +21,16 @@ import {
   Phone,
   Mail,
 } from "lucide-react";
-import Image from "next/image";
 
-export default function Home() {
+import Image from "next/image";
+import NewsGrid from "@/components/NewsGrid";
+
+const Home = () => {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
       <section className="relative h-[600px] flex items-center justify-center bg-gradient-to-br from-primary/20 to-primary/5">
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://picsum.photos/1920/600?random=1"
-            alt="Hero background"
-            className="w-full h-full object-cover opacity-20"
-          />
-        </div>
+        <div className="absolute inset-0 z-0"></div>
         <div className="container mx-auto px-4 z-10 text-center">
           <div className="flex flex-col md:flex-row items-center justify-center gap-2">
             <h1 className="text-5xl md:text-6xl font-bold ">
@@ -144,37 +142,7 @@ export default function Home() {
               Informasi dan kegiatan terbaru di lingkungan kita
             </p>
           </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {[1, 2, 3].map((i) => (
-              <Card
-                key={i}
-                className="overflow-hidden hover:shadow-lg transition-shadow"
-              >
-                <img
-                  src={`https://picsum.photos/400/250?random=${i + 10}`}
-                  alt={`Berita ${i}`}
-                  className="w-full h-48 object-cover"
-                />
-                <CardHeader>
-                  <CardTitle className="line-clamp-2">
-                    Kegiatan Gotong Royong Minggu Ini
-                  </CardTitle>
-                  <CardDescription>15 Desember 2024</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-muted-foreground line-clamp-3 mb-4">
-                    Warga RW berkumpul untuk melakukan gotong royong
-                    membersihkan lingkungan dan memperindah taman...
-                  </p>
-                  <Button variant="link" asChild className="p-0">
-                    <Link href="/informasi/berita">
-                      Baca selengkapnya <ArrowRight className="ml-2 size-4" />
-                    </Link>
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+          <NewsGrid />
         </div>
       </section>
 
@@ -289,4 +257,6 @@ export default function Home() {
       </section>
     </div>
   );
-}
+};
+
+export default Home;
