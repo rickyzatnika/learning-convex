@@ -19,14 +19,10 @@ import CreateNewsForm from "@/components/web/createNews";
 import Image from "next/image";
 
 export default function BeritaPage() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const { isAuthenticated } = useConvexAuth();
-
   const berita = useQuery(api.news.getNews);
 
   return (
     <>
-      {isModalOpen && <CreateNewsForm setIsModalOpen={setIsModalOpen} />}
       <div className="min-h-screen pt-24 pb-20">
         <div className="container mx-auto px-4">
           {/* Header */}
@@ -46,15 +42,6 @@ export default function BeritaPage() {
           <div className="max-w-6xl mx-auto">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-2xl font-bold mb-6">Berita Lainnya</h2>
-              {isAuthenticated && (
-                <Button
-                  variant="outline"
-                  className="mb-6"
-                  onClick={() => setIsModalOpen(true)}
-                >
-                  Tambah Berita
-                </Button>
-              )}
             </div>
             <div className="grid md:grid-cols-3 gap-6 ">
               {berita?.map((item) => (

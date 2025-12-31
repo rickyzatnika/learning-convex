@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 
 export default function PuskesmasPage() {
-  const layanan = [
+  const layananPuskemas = [
     {
       icon: Stethoscope,
       title: "Pemeriksaan Umum",
@@ -104,7 +104,7 @@ export default function PuskesmasPage() {
         <div className="max-w-6xl mx-auto mb-12">
           <h2 className="text-2xl font-bold mb-6">Layanan Kesehatan</h2>
           <div className="grid md:grid-cols-3 gap-6">
-            {layanan.map((item, i) => {
+            {layananPuskemas.map((item, i) => {
               const Icon = item.icon;
               return (
                 <Card key={i} className="hover:shadow-lg transition-shadow">

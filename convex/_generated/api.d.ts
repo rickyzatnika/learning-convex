@@ -13,6 +13,7 @@ import type * as http from "../http.js";
 import type * as layanan from "../layanan.js";
 import type * as livechat from "../livechat.js";
 import type * as news from "../news.js";
+import type * as pkk from "../pkk.js";
 
 import type {
   ApiFromModules,
@@ -26,6 +27,7 @@ declare const fullApi: ApiFromModules<{
   layanan: typeof layanan;
   livechat: typeof livechat;
   news: typeof news;
+  pkk: typeof pkk;
 }>;
 
 /**

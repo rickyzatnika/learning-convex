@@ -1,14 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ReactNode, useMemo } from "react";
 import { cn } from "@/lib/utils";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { Inbox, LayoutGrid, Newspaper, Landmark, Shield, Sparkles, Users, TreePalm, Goal } from "lucide-react";
+import {
+  Inbox,
+  LayoutGrid,
+  Newspaper,
+  Landmark,
+  Shield,
+  Sparkles,
+  Users,
+  TreePalm,
+  Goal,
+} from "lucide-react";
+import { authClient } from "@/lib/auth-client";
+import { toast } from "sonner";
 
-const NavLink = ({ href, label, icon: Icon, active }: { href: string; label: string; icon?: any; active?: boolean }) => (
+const NavLink = ({
+  href,
+  label,
+  icon: Icon,
+  active,
+}: {
+  href: string;
+  label: string;
+  icon?: any;
+  active?: boolean;
+}) => (
   <Link
     href={href}
     className={cn(
@@ -24,6 +46,8 @@ const NavLink = ({ href, label, icon: Icon, active }: { href: string; label: str
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   const pathname = usePathname();
 
+  const router = useRouter();
+
   const groups = useMemo(
     () => [
       {
@@ -36,25 +60,57 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       {
         title: "Informasi",
         items: [
-          { href: "/dashboard/informasi/berita", label: "Berita", icon: Newspaper },
+          {
+            href: "/dashboard/informasi/berita",
+            label: "Berita",
+            icon: Newspaper,
+          },
           { href: "/dashboard/informasi/pkk", label: "PKK", icon: Users },
-          { href: "/dashboard/informasi/puskesmas", label: "Puskesmas", icon: Landmark },
+          {
+            href: "/dashboard/informasi/puskesmas",
+            label: "Puskesmas",
+            icon: Landmark,
+          },
         ],
       },
       {
         title: "Layanan",
         items: [
-          { href: "/dashboard/layanan/administrasi", label: "Administrasi", icon: Landmark },
-          { href: "/dashboard/layanan/keamanan", label: "Keamanan", icon: Shield },
-          { href: "/dashboard/layanan/kebersihan", label: "Kebersihan", icon: Sparkles },
+          {
+            href: "/dashboard/layanan/administrasi",
+            label: "Administrasi",
+            icon: Landmark,
+          },
+          {
+            href: "/dashboard/layanan/keamanan",
+            label: "Keamanan",
+            icon: Shield,
+          },
+          {
+            href: "/dashboard/layanan/kebersihan",
+            label: "Kebersihan",
+            icon: Sparkles,
+          },
         ],
       },
       {
         title: "Tentang Kami",
         items: [
-          { href: "/dashboard/tentang-kami/pengurus-rt", label: "Pengurus RT", icon: Users },
-          { href: "/dashboard/tentang-kami/struktur-rw", label: "Struktur RW", icon: TreePalm },
-          { href: "/dashboard/tentang-kami/visi-misi", label: "Visi & Misi", icon: Goal },
+          {
+            href: "/dashboard/tentang-kami/pengurus-rt",
+            label: "Pengurus RT",
+            icon: Users,
+          },
+          {
+            href: "/dashboard/tentang-kami/struktur-rw",
+            label: "Struktur RW",
+            icon: TreePalm,
+          },
+          {
+            href: "/dashboard/tentang-kami/visi-misi",
+            label: "Visi & Misi",
+            icon: Goal,
+          },
         ],
       },
     ],
@@ -65,7 +121,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
     <div className="min-h-screen grid grid-cols-1 md:grid-cols-[240px_1fr]">
       {/* Sidebar */}
       <aside className="border-r bg-card/50">
-        <div className="h-14 px-3 flex items-center font-semibold text-sm">Admin Dashboard</div>
+        <div className="h-14 px-3 flex items-center font-semibold text-sm">
+          Admin Dashboard
+        </div>
         <Separator />
         <nav className="p-3 space-y-6">
           {groups.map((group) => (
@@ -86,6 +144,25 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
               </div>
             </div>
           ))}
+          <Button
+            onClick={() =>
+              authClient.signOut({
+                fetchOptions: {
+                  onSuccess: () => {
+                    toast.success("Berhasil keluar.");
+                    router.push("/");
+                  },
+                  onError: (error) => {
+                    toast.error(error.error.message);
+                  },
+                },
+              })
+            }
+            className="w-full"
+            variant="outline"
+          >
+            Logout
+          </Button>
         </nav>
       </aside>
 
@@ -93,11 +170,9 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
       <main className="min-h-screen">
         {/* Top bar (optional) */}
         <div className="h-14 px-4 border-b flex items-center justify-between sticky top-0 bg-background/60 backdrop-blur">
-          <div className="font-medium">{groups.flatMap((g) => g.items).find((i) => i.href === pathname)?.label || "Dashboard"}</div>
-          <div className="flex items-center gap-2">
-            <Button variant="outline" size="sm" asChild>
-              <Link href="/">Lihat Website</Link>
-            </Button>
+          <div className="font-medium text-xl">
+            {groups.flatMap((g) => g.items).find((i) => i.href === pathname)
+              ?.label || "Dashboard"}
           </div>
         </div>
         <div className="max-w-7xl mx-auto w-full p-4">{children}</div>

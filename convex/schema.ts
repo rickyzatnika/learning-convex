@@ -9,6 +9,23 @@ export default defineSchema({
     content: v.string(),
     imageStorageId: v.optional(v.id("_storage")),
   }),
+  pkk: defineTable({
+    slug: v.string(), // use "default" as singleton key
+    heroImageUrl: v.optional(v.string()),
+    // aboutText / ketua / jumlahAnggota are now static outside DB
+    programs: v.array(
+      v.object({
+        iconKey: v.string(), // e.g. education | health | food | craft
+        title: v.string(),
+        description: v.string(),
+        kegiatan: v.array(v.string()),
+      })
+    ),
+    jadwal: v.array(
+      v.object({ kegiatan: v.string(), waktu: v.string(), tempat: v.string() })
+    ),
+    galleryImageUrls: v.array(v.string()),
+  }).index("by_slug", ["slug"]),
   services: defineTable({
     nama: v.string(),
     waktu: v.string(),

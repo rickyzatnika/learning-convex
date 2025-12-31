@@ -95,6 +95,48 @@ export const getNewsByTitleCaseInsensitive = query({
   },
 });
 
+// Update a news post
+export const updateNews = mutation({
+  args: {
+    id: v.id("news"),
+    title: v.string(),
+    author: v.string(),
+    desc: v.string(),
+    content: v.string(),
+    imageStorageId: v.optional(v.id("_storage")),
+  },
+  handler: async (ctx, args) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+    if (!user) {
+      throw new ConvexError("Not Authenticated!");
+    }
+    const patch: any = {
+      title: args.title,
+      author: args.author,
+      desc: args.desc,
+      content: args.content,
+    };
+    if (args.imageStorageId) {
+      patch.imageStorageId = args.imageStorageId;
+    }
+    await ctx.db.patch(args.id, patch);
+    return args.id;
+  },
+});
+
+// Delete a news post
+export const deleteNews = mutation({
+  args: { id: v.id("news") },
+  handler: async (ctx, args) => {
+    const user = await authComponent.safeGetAuthUser(ctx);
+    if (!user) {
+      throw new ConvexError("Not Authenticated!");
+    }
+    await ctx.db.delete(args.id);
+    return args.id;
+  },
+});
+
 //ImageUpload
 
 export const generateImageUploadUrl = mutation({
